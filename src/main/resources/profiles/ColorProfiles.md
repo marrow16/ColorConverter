@@ -11,22 +11,22 @@ The file ```ISOcoated_v2_300_eci.icc``` is used as the default color profile for
 Not shipped in this repo are the vast selection of ICC Color Profiles that could be used - some useful download links
 for these files are as follows:-
 
-####Adobe
+#### Adobe
 [Color Profile Bundling Agreement](https://www.adobe.com/support/downloads/iccprofiles/icc_eula_win_dist.html)<br/>
 <br/>
 
-####basICColor
+#### basICColor
 [basICColor_Offset_2009.zip](http://www.colormanagement.org/download_files/basICColor_Offset_2009.zip)<br/>
 [basICColor_Offset_2007.zip](http://www.colormanagement.org/download_files/basICColor_Offset_2007.zip)<br/>
 [Profile_GCR_bas.zip](http://www.colormanagement.org/download_files/Profile_GCR_bas.zip)<br/>
 [Parent downloads page](http://www.colormanagement.org/en/download.html) - NB. Press 'Cancel' to alert (it wants you to install Flash!)
 <br/>
 
-####ECI (European Color Initiative) 
+#### ECI (European Color Initiative) 
 _(Love the use of American spelling for a European organisation!}_<br/>
 
 [Downloads](http://www.eci.org/en/downloads)<br/>
-######Specific links for zips of profiles:-
+###### Specific links for zips of profiles:-
 Lastest versions:-<br/>
 [pso-coated_v3.zip](http://www.eci.org/_media/downloads/icc_profiles_from_eci/pso-coated_v3.zip)<br/>
 [pso-uncoated_v3_fogra52.zip](http://www.eci.org/_media/downloads/icc_profiles_from_eci/pso-uncoated_v3_fogra52.zip)<br/>
@@ -41,7 +41,7 @@ Older versions:-<br/>
 [ecirgbv10.zip](http://www.eci.org/_media/downloads/icc_profiles_from_eci/ecirgbv10.zip)<br/>
 <br/>
 
-####ICC (International Color Consortium)
+#### ICC (International Color Consortium)
 [ICC Profile Registry](http://www.color.org/registry/index.xalter)<br/>
 Unfortunately you'd have to go to individual pages for each profile and press a 'Download' button - so for your convenience, here are the actual file urls:-<br/>
 [JapanColor2011Coated.icc](http://www.color.org/registry/profiles/JapanColor2011Coated.icc)<br/>
@@ -70,7 +70,3 @@ Please read 'Terms of use' before downloading...<br/>
 [sRGB_v4_ICC_preference.icc](http://www.color.org/sRGB_v4_ICC_preference.icc)<br/>
 [sRGB_v4_ICC_preference_displayclass.icc](http://www.color.org/sRGB_v4_ICC_preference_displayclass.icc)<br/>
 [sRGB2014.icc](http://www.color.org/profiles/sRGB2014.icc)<br/>
-
-
-
-
