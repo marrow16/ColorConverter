@@ -93,7 +93,12 @@ public class XyzEndpoint extends AbstractColorEndpoint {
 								"string")
 								.addValidation("If parameters '" + ColorParams.PARAM_NAME_RED + "', '" + ColorParams.PARAM_NAME_GREEN + "' and '" + ColorParams.PARAM_NAME_BLUE + "' are specified then this must be an RGB profile, " +
 										"if parameters '" + ColorParams.PARAM_NAME_CYAN + "', '" + ColorParams.PARAM_NAME_MAGENTA + "', '" + ColorParams.PARAM_NAME_YELLOW + "' and '" + ColorParams.PARAM_NAME_BLACK + "' are specified then this must be a CMYK profile")
-								.addValuesRef("/" + ProfilesEndpoint.ENDPOINT_URI_PROFILES)
+								.addValuesRef("/" + ProfilesEndpoint.ENDPOINT_URI_PROFILES),
+						new ParameterOption(ColorParams.PARAM_NAME_CRUDE,
+								"Whether to use crude mathematical conversion algorithm",
+								"boolean")
+								.addValidation("Default is 'false' if omitted - if this parameter is specified without value then 'true' is assumed")
+								.addValues(Boolean.TRUE, Boolean.FALSE)
 				));
 	}
 

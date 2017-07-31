@@ -63,6 +63,17 @@ public class ConversionResult {
 		return result;
 	}
 
+	public static ConversionResult createRgbResult(float r, float g, float b) {
+		ConversionResult result = new ConversionResult();
+		result.r = Math.round(r * 255f);
+		result.g = Math.round(g * 255f);
+		result.b = Math.round(b * 255f);
+		result.rPercent = r;
+		result.gPercent = g;
+		result.bPercent = b;
+		return result;
+	}
+
 	public static ConversionResult createCmykResult(float[] cmyk) {
 		ConversionResult result = new ConversionResult();
 		result.c = cmyk[0];

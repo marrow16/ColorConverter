@@ -267,6 +267,9 @@ public class ColorConverter {
 	}
 
 	private ConversionResult Xyz2Rgb(ColorParams params, Map<String,ICC_ColorSpace> colorSpacesUsed) throws Exception {
+		if (params.isCrudeConversion()) {
+			return Xyz2RgbCrude(params);
+		}
 		String targetProfile = params.getTargetProfile();
 		if (targetProfile == null) {
 			targetProfile = PooledColorSpaceFactory.PROFILE_NAME_SRGB;
@@ -276,6 +279,20 @@ public class ColorConverter {
 		checkCorrectColorSpace(targetProfile, ColorType.RGB, targetColorSpace);
 		float[] rgb = targetColorSpace.fromCIEXYZ(params.getCieXYZ());
 		return ConversionResult.createRgbResult(rgb);
+	}
+
+	private ConversionResult Xyz2RgbCrude(ColorParams params) {
+		float x = params.getCieXValue();
+		float y = params.getCieYValue();
+		float z = params.getCieZValue();
+		double rLinear = (x * 3.2410f) - (y * 1.5374f) - (z * 0.4986f);
+//		double gLinear = (-x * 0.9692f) + (y * 1.8760f) - (z * 0.0416f);
+		double gLinear = (-x * 0.9692f) + (y * 1.8760f) + (z * 0.0416f);
+		double bLinear = (x * 0.0556f) - (y * 0.2040f) + (z * 1.0570f);
+		rLinear = (rLinear <= 0.0031308f) ? 12.92f * rLinear : 1.055f * Math.pow(rLinear, (1.0f/2.4f)) - 0.055f;
+		gLinear = (gLinear <= 0.0031308f) ? 12.92f * gLinear : 1.055f * Math.pow(gLinear, (1.0f/2.4f)) - 0.055f;
+		bLinear = (bLinear <= 0.0031308f) ? 12.92f * bLinear : 1.055f * Math.pow(bLinear, (1.0f/2.4f)) - 0.055f;
+		return ConversionResult.createRgbResult((float)rLinear, (float)gLinear, (float)bLinear);
 	}
 
 	private ConversionResult Cmyk2Xyz(ColorParams params, Map<String,ICC_ColorSpace> colorSpacesUsed) throws Exception {
@@ -291,6 +308,9 @@ public class ColorConverter {
 	}
 
 	private ConversionResult Rgb2Xyz(ColorParams params, Map<String,ICC_ColorSpace> colorSpacesUsed) throws Exception {
+		if (params.isCrudeConversion()) {
+			return Rgb2XyzCrude(params);
+		}
 		String sourceProfile = params.getSourceProfile();
 		if (sourceProfile == null) {
 			sourceProfile = PooledColorSpaceFactory.PROFILE_NAME_SRGB;
@@ -300,6 +320,19 @@ public class ColorConverter {
 		checkCorrectColorSpace(sourceProfile, ColorType.RGB, sourceColorSpace);
 		float[] xyz = sourceColorSpace.toCIEXYZ(params.getRGB());
 		return ConversionResult.createXyzResult(xyz);
+	}
+
+	private ConversionResult Rgb2XyzCrude(ColorParams params) {
+		float rLinear = params.getRedValue().floatValue() / 255f;
+		float gLinear = params.getGreenValue().floatValue() / 255f;
+		float bLinear = params.getBlueValue().floatValue() / 255f;
+		double r = (rLinear > 0.04045f) ? Math.pow((rLinear + 0.055f)/(1f + 0.055f), 2.2f) : (rLinear / 12.92f);
+		double g = (gLinear > 0.04045f) ? Math.pow((gLinear + 0.055f)/(1f + 0.055f), 2.2f) : (gLinear / 12.92f);
+		double b = (bLinear > 0.04045f) ? Math.pow((bLinear + 0.055f)/(1f + 0.055f), 2.2f) : (bLinear / 12.92f);
+		return ConversionResult.createXyzResult(
+				(float)((r * 0.4124f) + (g * 0.3576f) + (b * 0.1805f)),
+				(float)((r * 0.2126f) + (g * 0.7152f) + (b * 0.0722f)),
+				(float)((r * 0.0193f) + (g * 0.1192f) + (b * 0.9505f)));
 	}
 
 	private ConversionResult resultFromCache(ColorParams params) {
